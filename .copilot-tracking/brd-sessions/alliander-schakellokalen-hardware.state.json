@@ -1,0 +1,34 @@
+{
+  "brdFile": "docs/brds/alliander-schakellokalen-hardware-brd.md",
+  "lastAccessed": "2026-09-30T00:00:00Z",
+  "currentPhase": "validation",
+  "questionsAsked": [],
+  "answeredQuestions": {
+    "initiative": "Alliander Digital Schakellokalen hardware partner BRD, per docs/brds/prompts/hardware-brd-prompt.md"
+  },
+  "referencesProcessed": [
+    {
+      "file": "docs/recon/tender-hardware-recon.md",
+      "status": "analyzed",
+      "keyFindings": "31 Bijlage T core scenarios, Bijlage L knock-outs (SAFE-01/02, IT-03, IAM level A), Bijlage N GC1-3 quality criteria, Bijlage J pricing structure, 12 open gaps (G-03 to G-14)"
+    }
+  ],
+  "nextActions": [
+    "Confirm document with Avanade bid lead before sharing with hardware partner",
+    "Resolve open questions via joint site survey and RFP clarification round",
+    "Review MVO document for circular-hardware scoring detail (G-14)"
+  ],
+  "qualityChecks": [
+    "objectives-defined",
+    "scope-clarified",
+    "requirements-linked-to-objectives",
+    "requirements-prioritized",
+    "safety-and-security-constraints-captured",
+    "live-case-walkthrough-included",
+    "open-questions-flagged"
+  ],
+  "userPreferences": {
+    "detail-level": "comprehensive",
+    "question-style": "prompt-driven, single-pass generation from detailed task brief"
+  }
+}
