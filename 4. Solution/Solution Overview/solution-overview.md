@@ -16,12 +16,12 @@ This is the single source of truth for the Digital Schakellokalen solution overv
 
 | Layer | Covers | Status |
 |---|---|---|
-| [Business architecture](#business-architecture) | Stakeholders, training outcomes, scope boundary, value chain across the 8-year framework | Placeholder |
-| [Enterprise architecture](#enterprise-architecture) | Fit with Alliander's existing systems (Archipel, LVS), portfolio and capability mapping | Placeholder |
+| [Business architecture](#business-architecture) | Stakeholders, training outcomes, scope boundary, value chain across the 8-year framework | Drafted from BRD + recon facts |
+| [Enterprise architecture](#enterprise-architecture) | Fit with Alliander's existing systems (Archipel, LVS), portfolio and capability mapping | Drafted from recon facts, standards/framework fit still open |
 | [Solution architecture](#solution-architecture) | The six-layer component model: physical, instrument, edge, digital twin, AI/agentic, experience | Drafted (suggested, not final) |
 | [Hardware architecture](#hardware-architecture) | Instrumentation and edge device design, fail-safe behaviour, field-replaceability | Drafted from recon facts |
 | [Network architecture](#network-architecture) | On-site industrial network and protocol stack, edge-to-cloud connectivity, offline operation, segmentation | Drafted from recon facts, protocol choice not yet confirmed |
-| [Data architecture](#data-architecture) | Digital twin data model, learning-data flows, EEA residency, retention | Placeholder |
+| [Data architecture](#data-architecture) | Digital twin data model, learning-data flows, EEA residency, retention | Drafted from recon facts, retention policy still open |
 | [Security architecture](#security-architecture) | IAM/IGA integration, SIEM export, encryption, certifications, fail-safe independence | Drafted from recon facts |
 
 ## Architecture Summary
@@ -38,51 +38,51 @@ The Digital Schakellokalen solution is a layered edge-to-cloud architecture. Unl
 
 ## Business Architecture
 
-> **Placeholder.** Not yet developed. Should cover: stakeholder map (training organisation, trainees, IAM/security/SIEM teams, procurement — see the [Hardware BRD](../Hardware%20Solution/alliander-schakellokalen-hardware-brd.md#stakeholders-and-roles) for the current stakeholder list), the business outcomes the framework agreement is buying (scenario coverage, availability, scalability to new sites), the value chain across the 3+5x1-year contract term, and the scope split between the hardware partner and Avanade/Alliander in business terms rather than technical layers.
+Grounded in the [Hardware BRD](../Hardware%20Solution/alliander-schakellokalen-hardware-brd.md) and the [tender hardware recon](../Hardware%20Solution/recon/tender-hardware-recon.md).
+
+**Stakeholders:**
+
+| Stakeholder | Role |
+|---|---|
+| Alliander training and learning organisation | Defines training scenarios and pedagogy; primary user of the instructor dashboard and learning data |
+| Alliander trainees and monteurs | End users of the physical instrumentation; perform switching operations and receive fault scenarios |
+| Alliander IAM, security, and SIEM teams | Own the identity platform the solution must integrate with; consume authentication event exports |
+| Alliander procurement and contract management | Own the framework agreement, SLA, and the 8-year contract term across up to 5 one-year extensions |
+| Avanade bid and delivery team | Designs layers 4-6, authors the proposal, integrates the hardware partner's deliverables |
+| IoT hardware partner | Sources, builds, enables, services, and supports layers 1-3 |
+
+**Business outcomes the framework agreement is buying:**
+
+* Digital coverage of all 31 Bijlage T core training scenarios (10 OV, 11 MK, 5 LS, 5 MS), replacing instructor-only manual observation (Bijlage L ACC-03).
+* Objective, data-backed scoring of trainee sessions instead of subjective instructor judgement, feeding the GC3 learning-data ambition.
+* Training availability of at least 99% during training hours, with fallback scenarios proven at acceptance (Bijlage L PERF-03, PERF-04; Bijlage Q SLA).
+* Scalability: the same architecture absorbing additional training environments added under the framework, without redesign (Aanbestedingsleidraad §1.3; Bijlage N GC2).
+
+**Value chain across the 8-year term:** a 3-year base contract plus up to 5 one-year extensions (max. 8 years total). Implementation starts with a pilot/PoC on one representative training environment before broader rollout (Bijlage L IMP-03), then scales across the initial 4 environments (1 schakellokaal + 1 meetveld each in Haarlem and Zevenaar) and any further environments added later in the term.
+
+**Scope boundary in business/commercial terms** (Bijlage J pricing structure): hardware delivery ("Levering van Hardware") and hardware installation ("Aansluiten van hardwarecomponenten") are one-time, separately priced line items owned by the hardware partner. Ongoing hardware upkeep is folded into the annual "Technisch beheer en support" line, not billed as a separate hardware maintenance item. Avanade's software development, base licence, and functional/technical support line items cover layers 4-6. All pricing is all-in; no line items may be added after the questions deadline.
 
 ## Enterprise Architecture
 
-> **Placeholder.** Not yet developed. Should cover: how the solution fits alongside Alliander's existing systems, Archipel (being replaced under a separate tender) and LVS (the existing learning management system, future integration required per GC3), capability mapping against Alliander's broader IT/OT portfolio, and how this solution avoids creating a parallel, disconnected system.
+Grounded in the [tender hardware recon](../Hardware%20Solution/recon/tender-hardware-recon.md) §2-3.
+
+**Existing Alliander systems this solution must coexist with:**
+
+* **Archipel** — an existing system being replaced under a separate tender, out of scope here. The new platform must not depend on Archipel and must be able to operate independently of whatever replaces it (Aanbestedingsleidraad §1.5, interpreted).
+* **LVS (Leer Volg Systeem)** — Alliander's existing learning management system. Not an integration requirement today, but the platform must expose open APIs so future LVS integration is possible; LVS API-readiness is itself a GC3 quality-scoring dimension.
+* **Alliander IAM** — the one true integration knock-out (see [Security Architecture](#security-architecture)). Every identity touchpoint in the solution, including edge hardware, routes through it.
+
+**Operating-model constraint (Bijlage L Voorblad, explicit statement):** Alliander is explicit that it does *not* want a generic enterprise simulation platform. It wants a pragmatic, manageable digital control layer, and trainers must be able to manage scenarios independently, without structural dependency on the supplier's development capacity after go-live. This shapes the enterprise fit: the solution should minimize ongoing custom-development dependency and favor configurable scenario management over code-level changes.
+
+**Portfolio/capability mapping against Alliander's broader IT/OT estate:** not specified anywhere in the tender documents read to date. No enterprise architecture framework (for example TOGAF, ArchiMate), reference architecture, or IT/OT segmentation standard is named by Alliander. This is a genuine open question rather than something inferable from available sources — worth raising if a further clarification round (NvI 2) opens.
 
 ## Solution Architecture
 
-The diagram below is also available as an editable draw.io file: [architecture-diagram.drawio](./architecture-diagram.drawio). Open it in the draw.io desktop app, diagrams.net, or the VS Code draw.io extension.
+The diagram below is rendered from the editable draw.io source: [architecture-diagram.drawio](./architecture-diagram.drawio). Open it in the draw.io desktop app, diagrams.net, or the VS Code draw.io extension to edit it, then export as PNG over [architecture-diagram.png](./architecture-diagram.png) to refresh the image below.
 
-```text
-+===========================================+     +===========================================+
-|  PS: Partner Scope                        |     |  AS: Avanade / Alliander Scope             |
-|  Hardware Layer (offline-capable)         |     |  Digital Layer                             |
-|                                            |     |                                             |
-|  +--------------------------------------+ |     |  +--------------------------------------+   |
-|  | Layer 1 - Physical                  | |     |  | Layer 4 - Digital Twin               |   |
-|  | MV/LV switchgear, RMUs, breakers,   | |     |  | Authoritative network model,         |   |
-|  | meterkast, street lighting (FlexOV) | |     |  | live state, session history          |   |
-|  +------------------+-------------------+ |     |  +------------------+-------------------+   |
-|                     v                     |     |                     v                       |
-|  +--------------------------------------+ |     |  +--------------------------------------+   |
-|  | Layer 2 - Instrument                | |     |  | Layer 5 - AI & Agentic                |   |
-|  | Sensors, relays, I/O modules,       | |     |  | Vision step validation, procedure    |   |
-|  | RFID/NFC, fault-injection points    | |     |  | copilot, fault engine, scoring       |   |
-|  +------------------+-------------------+ |     |  +------------------+-------------------+   |
-|                     v                     |     |                     v                       |
-|  +--------------------------------------+ |     |  +--------------------------------------+   |
-|  | Layer 3 - Connect (Edge)            |-|-----|->| Layer 6 - Experience                  |   |
-|  | On-site gateway + edge server       | | sync when connectivity available, async,    |   |
-|  | industrial protocol stack, UPS      | | not required for operation                  |   |
-|  | runs FULLY OFFLINE                  | |     |  | Instructor dashboard, trainee HMI,   |   |
-|  +--------------------------------------+ |     |  | optional AR/MR, voice                |   |
-|                                            |     |  +--------------------------------------+   |
-+===========================================+     +===========================================+
-        ^                                                    ^
-        | OIDC/OAuth2 + PKCE,                                | never overridden by
-        | SIEM export, no local                              |
-        | credential stores                                  |
-  +--------------------------+                    +--------------------------------+
-  | Alliander IAM            |                    | Physical safety systems         |
-  +--------------------------+                    | interlocks, e-stop, LOTO         |
-                                                    | INDEPENDENT of digital layer    |
-                                                    +--------------------------------+
-```
+> **Image is stale.** `architecture-diagram.png` was exported before the latest diagram fixes (the Layer 3 → Layer 6 live-view connection, and the hedged protocol/trainee-ID labels) and was exported with a dark background instead of the intended light-grey scope containers. Re-export from the current `.drawio` file before this goes into a submission.
+
+![Digital Schakellokalen solution architecture diagram: Partner Scope (Layers 1-3, hardware, offline-capable) on the left and Avanade/Alliander Scope (Layers 4-6, digital, cloud-hosted EEA) on the right, with Alliander IAM and physical safety systems shown as cross-cutting concerns below each column.](./architecture-diagram.png)
 
 ### Legend
 
@@ -95,7 +95,8 @@ The diagram below is also available as an editable draw.io file: [architecture-d
 ### Key Relationships
 
 * Layers 1 through 3 form the hardware partner's delivery scope; layer 3 is the only component that must keep a training session running through a temporary loss of internet connectivity.
-* The edge-to-cloud sync is asynchronous and best-effort; a training session never blocks on cloud reachability.
+* Layer 3 connects to Layer 6 directly over the local network for live instructor/trainee observation during a session; this connection does not depend on cloud reachability.
+* The edge-to-cloud sync (Layer 3 to Layer 4) is a separate, asynchronous, best-effort path; a training session never blocks on cloud reachability.
 * Alliander's IAM platform federates identity into the edge for trainee and instructor authentication, with no local credential store anywhere in the stack.
 * Physical safety systems remain entirely independent of the digital layer by design, satisfying SAFE-01 and SAFE-02.
 * Layers 4 through 6 are Avanade and Alliander's digital scope, hosted with EEA-only data residency.
@@ -140,7 +141,19 @@ Grounded in the [tender hardware recon](../Hardware%20Solution/recon/tender-hard
 
 ## Data Architecture
 
-> **Placeholder.** Not yet developed. Should cover: the digital twin's data model (network topology, live state, scenario/fault state, session history — ITAR-06), the learning-data model captured for GC3 (trainee actions, outcomes, session dossiers), data flow between edge and cloud (what syncs, how often, conflict handling), retention policy, and the EEA-only storage boundary (Bijlage L IT-03, LCD11) including the required inventory of datacentres/cloud regions and their role (production/test/backup).
+Grounded in Bijlage L (ITAR-06, IT-03, IT-04, LCD11) and Bijlage N GC3.
+
+**Digital twin data model:** a central, authoritative digital network model representing both the physical and logical network — topology, live component state, active scenario/fault state, and session history (Bijlage L ITAR-06). This model is the basis for scenario analysis, simulation, validation, and learning-data extraction, and it is the same Layer 4 store referenced in the [Solution Architecture](#solution-architecture).
+
+**Learning-data model (GC3):** trainee actions and outcomes captured per session — which scenario ran, what faults were injected, how the trainee responded, and the resulting score — structured as a session dossier. This is the dataset GC3 scores the solution against, and it is also the dataset that would eventually flow into LVS if that integration is built.
+
+**Edge-to-cloud data flow:** consistent with the [Network Architecture](#network-architecture) design, session and scenario data is captured locally at the edge first (so a session never depends on cloud reachability), then synced asynchronously to the cloud-hosted digital twin and learning-data store when connectivity is available. Conflict handling and exact sync cadence are not yet designed.
+
+**EEA-only residency (knock-out):** all data is stored exclusively within the EEA — stated twice independently in Bijlage L (IT-03, and again under cloud-provider requirements as LCD11). The supplier must supply a complete, current inventory of every datacentre, cloud region, and storage service used, including physical country and role (production, test, backup, archival, failover); any change to storage locations must be reported to Alliander in advance for re-assessment.
+
+**Encryption:** data traffic is encrypted in transit at TLS 1.2 minimum, TLS 1.3 preferred (Bijlage L IT-04). Encryption at rest is not explicitly mandated in the tender documents read to date; treat industry-standard at-rest encryption (for example AES-256) as an Avanade design default pending confirmation, not a quoted tender requirement.
+
+**Open items:** retention period (how long session/learning data is kept, and any Alliander-driven deletion requirement) is not specified anywhere in the tender documents and needs a decision before this section can be called complete.
 
 ## Security Architecture
 
@@ -169,10 +182,12 @@ Grounded in Bijlage V (IAM) and the relevant Bijlage L non-functional and cloud-
 
 ## Next Steps
 
-* Fill in the Business, Enterprise, and Data architecture placeholders above; none of them exist yet, and GC1/GC2 scoring depends on a credible, complete architecture package, not just the solution diagram.
-* Confirm the Network architecture's protocol assumptions (OPC-UA/Modbus/MQTT) with the hardware partner and the Zevenaar/Haarlem site survey before stating them as fact in a submission.
+* **Blocked on external input — confirm the Network architecture's protocol assumptions (OPC-UA/Modbus/MQTT)** with the hardware partner and the Zevenaar/Haarlem site survey before stating them as fact in a submission. This cannot be resolved from the tender documents alone; it needs a conversation with the partner.
+* Decide the data retention policy (how long session/learning data is kept) — not specified in the tender documents; needs an Alliander- or Avanade-side decision.
+* Confirm whether Alliander has an enterprise architecture framework or IT/OT segmentation standard the solution should align to; not stated anywhere in the tender documents — a good candidate for an NvI 2 clarification question if another round opens.
 * Confirm with the bid lead whether device-specific references (ABB SafeRing, WEGA, SVS) should remain indicative-only in the submitted version, consistent with the hardware BRD's guardrails.
 * Cross-check against the final RFP text once NvI 2 (if issued) closes any open questions.
+* Get a solution-architecture review of this document before it goes to Kryptonite-style red-team review.
 
 ## Related Documents
 

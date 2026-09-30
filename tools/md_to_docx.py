@@ -13,6 +13,8 @@ from docx.shared import Cm, Pt, RGBColor
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 
+IMAGE_RE = re.compile(r"^!\[([^\]]*)\]\(([^)]+)\)$")
+
 
 def plain(text):
     text = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", text)
@@ -170,10 +172,29 @@ def main():
                 doc.add_paragraph(plain(item), style="List Bullet")
             continue
 
+        image_match = IMAGE_RE.match(stripped)
+        if image_match:
+            alt, rel_path = image_match.groups()
+            img_path = (src.parent / rel_path).resolve()
+            if img_path.is_file():
+                doc.add_picture(str(img_path), width=Cm(16))
+                last_p = doc.paragraphs[-1]
+                last_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                if alt:
+                    caption = doc.add_paragraph()
+                    caption.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                    run = caption.add_run(alt)
+                    run.italic = True
+                    run.font.size = Pt(9)
+            else:
+                doc.add_paragraph(f"[Missing image: {rel_path}]")
+            i += 1
+            continue
+
         # plain paragraph, possibly wrapped over multiple lines
         para_lines = [stripped]
         i += 1
-        while i < n and body[i].strip() and not body[i].strip().startswith(("#", "|", "* ")) and not re.match(r"^\d+\.\s", body[i].strip()):
+        while i < n and body[i].strip() and not body[i].strip().startswith(("#", "|", "* ", "![")) and not re.match(r"^\d+\.\s", body[i].strip()):
             para_lines.append(body[i].strip())
             i += 1
         doc.add_paragraph(plain(" ".join(para_lines)))

@@ -21,11 +21,11 @@
           <mxGeometry x="60" y="100" width="260" height="90" as="geometry" />
         </mxCell>
 
-        <mxCell id="l2" value="Layer 2 - Instrument&#10;Sensors, relays, I/O modules,&#10;RFID/NFC, fault-injection points" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2F5496;strokeColor=#1b3868;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="l2" value="Layer 2 - Instrument&#10;Sensors, relays, I/O modules,&#10;trainee ID (method TBD), fault-injection points" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2F5496;strokeColor=#1b3868;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="60" y="230" width="260" height="90" as="geometry" />
         </mxCell>
 
-        <mxCell id="l3" value="Layer 3 - Connect (Edge)&#10;On-site gateway + edge server&#10;OPC-UA / Modbus / MQTT, UPS&#10;runs FULLY OFFLINE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2F5496;strokeColor=#1b3868;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+        <mxCell id="l3" value="Layer 3 - Connect (Edge)&#10;On-site gateway + edge server&#10;industrial protocol stack (TBD), UPS&#10;runs FULLY OFFLINE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2F5496;strokeColor=#1b3868;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
           <mxGeometry x="60" y="360" width="260" height="100" as="geometry" />
         </mxCell>
 
@@ -55,7 +55,11 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="e_l3_l4" value="sync when connectivity available&#10;(async, not required for operation)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;fontSize=9;fontStyle=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="l3" target="l4">
+        <mxCell id="e_l3_l4" value="sync when connectivity available&#10;(async, not required for operation)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;fontSize=9;fontStyle=2;exitX=1;exitY=0.2;entryX=0;entryY=0.8;" edge="1" parent="1" source="l3" target="l4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_l3_l6" value="live view (local network, always available)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;fontSize=9;fontStyle=2;exitX=1;exitY=0.8;entryX=0;entryY=0.5;" edge="1" parent="1" source="l3" target="l6">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
@@ -75,8 +79,8 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
 
-        <mxCell id="legend" value="Legend: solid arrow = data flow within a boundary; dashed arrow = cross-cutting / optional connection.&#10;PS (blue) = hardware partner delivery scope, offline-capable. AS (green) = Avanade/Alliander digital scope, cloud-hosted (EEA).&#10;IAM and Physical safety systems (orange) are cross-cutting: identity federates into the edge, safety remains fully independent of the digital layer." style="text;html=1;fontSize=11;align=left;verticalAlign=top;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="40" y="620" width="670" height="80" as="geometry" />
+        <mxCell id="legend" value="Legend: solid arrow = data flow within a boundary; dashed arrow = cross-cutting / optional or async connection.&#10;PS (blue) = hardware partner delivery scope, offline-capable. AS (green) = Avanade/Alliander digital scope, cloud-hosted (EEA).&#10;IAM and Physical safety systems (orange) are cross-cutting: identity federates into the edge, safety remains fully independent of the digital layer.&#10;Layer 3 to Layer 6 is a direct local connection (live instructor/trainee view) and does not depend on the cloud sync to Layer 4. Protocol names and trainee-ID method are indicative only, pending hardware partner confirmation." style="text;html=1;fontSize=11;align=left;verticalAlign=top;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="620" width="670" height="90" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

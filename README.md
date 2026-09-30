@@ -12,7 +12,7 @@ The tender documents themselves are **not copied here**. They stay in OneDrive a
 |---|---|
 | Tender hardware recon (Athanasios) | Done and corrected. Internal only: don't send to the partner |
 | Hardware BRD (HVE `@brd-builder`) | Corrected draft, md and Word, Vera-approved; Word copy in OneDrive `4. Solution/Hardware Solution/` |
-| Solution overview + architecture diagram | Draft, one consolidated md/docx/drawio set in `4. Solution/Solution Overview/`; business, enterprise, and data architecture sections are still placeholders |
+| Solution overview + architecture diagram | Draft, one consolidated md/docx/drawio set in `4. Solution/Solution Overview/`; all 7 architecture layers now have content. Network protocol choice and data retention policy still open |
 | Bob review | Pending |
 | Kryptonite review | Pending |
 
