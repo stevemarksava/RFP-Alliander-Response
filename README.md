@@ -10,16 +10,12 @@ The tender documents themselves are **not copied here**. They stay in OneDrive a
 
 | Step | Status |
 |---|---|
-| Tender hardware recon (Athanasios) | Done, with corrections pending (see below) |
-| Hardware BRD (HVE `@brd-builder`) | First draft, md and Word; Word copy in OneDrive `4. Solution/Hardware Solution/` |
+| Tender hardware recon (Athanasios) | Done and corrected. Internal only: don't send to the partner |
+| Hardware BRD (HVE `@brd-builder`) | Corrected draft, md and Word, Vera-approved; Word copy in OneDrive `4. Solution/Hardware Solution/` |
 | Bob review | Pending |
 | Kryptonite review | Pending |
-| Vera sign-off for sharing outside the bid team | Pending |
 
-Corrections Vera found, to fix in the recon and the BRD:
-- Scenario table: about 19 of the 31 Bijlage T IDs are matched to the wrong scenario. P2-MS-04 and P2-MS-05 are swapped (SF-6 is MS-05).
-- "Fully offline" is labelled a knock-out citing Aanbestedingsleidraad §1.5.3, which doesn't cover it. The actual source is Bijlage L PERF-05, "works during a temporary loss of internet".
-- Recon sources table puts Bijlage Q and V in the wrong folder.
+The Word version is generated from the markdown: `python tools/md_to_docx.py "4. Solution/Hardware Solution/alliander-schakellokalen-hardware-brd.md" "4. Solution/Hardware Solution/alliander-schakellokalen-hardware-brd.docx"`. Edit the markdown, not the Word file.
 
 Open item: the Zevenaar site survey. The BRD's assumptions about that site depend on it.
 
@@ -90,6 +86,7 @@ Paths are relative to `onedrive/1. Received from customer (do not change)/Mercel
 | `4. Solution/Hardware Solution/` | Hardware BRD for the IoT partner (md and Word, written by HVE `@brd-builder`) |
 | `4. Solution/Hardware Solution/recon/` | Athanasios's English recon of the hardware-relevant tender requirements, with RFP references |
 | `4. Solution/Hardware Solution/prompts/` | Prompts to paste into `@brd-builder` |
+| `tools/md_to_docx.py` | Converts a markdown BRD to Word |
 | `.squad/decisions/` | Decision log |
 
 ## Working rules

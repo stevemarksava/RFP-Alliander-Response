@@ -15,8 +15,8 @@
 | 3 | Aanbestedingsleidraad (18224691).pdf | `...3. Aanbestedingsleidraad en bijlagen/` | READ — full 14 pages | Most important document |
 | 4 | Bijlage T — Kernscenario's (18224716).pdf | `...3. Aanbestedingsleidraad en bijlagen/` | READ — full 9 pages | 31 core training scenarios |
 | 5 | Bijlage N — Gunningscriteria Kwaliteit (18224785).pdf | `...5. Kwaliteitscriteria/` | READ — full 7 pages | Award quality criteria |
-| 6 | Bijlage Q — SLA (18224773).pdf | `...3. Aanbestedingsleidraad en bijlagen/` | READ — template only, no values filled | SLA framework |
-| 7 | Bijlage V — IAM aansluitvoorwaarden (18224764).pdf | `...3. Aanbestedingsleidraad en bijlagen/` | READ — full | IAM knock-out requirements |
+| 6 | Bijlage Q — SLA (18224773).pdf | `...4. Uitsluitingsgronden, geschiktheidseisen en mi._/` | READ — template only, no values filled | SLA framework |
+| 7 | Bijlage V — IAM aansluitvoorwaarden (18224764).pdf | `...4. Uitsluitingsgronden, geschiktheidseisen en mi._/` | READ — full | IAM knock-out requirements |
 | 8 | Bijlage L — Programma van Eisen (18224760).xlsx | `...4. Uitsluitingsgronden, geschiktheidseisen en mi._/` | READ — extracted to text, 193 rows, 5 sheets | Sheets: Voorblad, Functionele eisen, Non-functionele eisen, Impl. + integratie + support, Eisen cloud provider. Full requirements now incorporated. |
 | 9 | Bijlage J — Prijzenblad (18224795).xlsx | `...6. Prijs/` | READ — extracted to text, 62 rows, 4 sheets | Sheets: Instructie, Samenvatting, Licentie- en optionele kosten, Implementatiekosten. Pricing structure now incorporated. |
 | 10 | Alliander — Schakellokaal requirements.pdf.pdf | `5. Relevant information/Previous Ava offers to Alliander/` | READ — Avanade material | 2023 requirements doc with floor plans and switchgear photos |
@@ -156,19 +156,19 @@ Column definitions:
 | HW-01 | Supplier must design, supply, install, and maintain all solution-specific hardware required for the digital control layer to function | SC | Aanbestedingsleidraad §1.5.4 | L2, L3 |
 | HW-02 | Hardware in scope includes: relays, I/O boards, cabling, comparable control technology, smart cables, sensors, switches | SC | Aanbestedingsleidraad §1.5.4 | L2, L3 |
 | HW-03 | Generic physical infrastructure (standard cabling, power supplies, physical switchrooms) is NOT supplier's responsibility | CO | Aanbestedingsleidraad §1.5.5 | L1 |
-| HW-04 | Solution must operate fully offline (on-site edge deployment). Cloud connectivity is an option, not a dependency. | KO | Aanbestedingsleidraad §1.5.3, §2; Bijlage T general principles | L3 |
+| HW-04 | Solution must function during temporary internet connectivity loss; local scenario execution must be possible when internet connection is temporarily unavailable. [NOTE: Bijlage L PERF-05 is marked "Eis" (mandatory) but specifies resilience to *temporary* outage — "tijdelijk wegvallende internetverbinding" — not permanent offline-only operation. Fully offline-capable edge design is an Avanade design choice that satisfies and exceeds PERF-05. §1.5.3 of the Aanbestedingsleidraad does not contain this requirement; that citation was incorrect.] | Eis (mandatory) | Bijlage L PERF-05 (Non-functionele eisen) | L3 |
 | HW-05 | Each training fault/scenario must be activatable and resettable by the instructor without interrupting other trainees' sessions | KO | Bijlage T §Algemene uitgangspunten | L2, L3 |
 | HW-06 | All scenarios must be reproducible identically (deterministic fault injection) | KO | Bijlage T §Algemene uitgangspunten | L2, L3 |
 | HW-07 | Random fault delivery: for at least some scenarios the platform must assign faults randomly so trainees cannot predict them | KO | Bijlage T §Algemene uitgangspunten | L3 |
 | HW-08 | Hardware must be suitable for intensive repeated use in a training environment | CO | Bijlage T §Algemene uitgangspunten | L2, L3 |
 | HW-09 | All training activities involving live or simulated voltage must comply with NEN 3140 and NEN-EN 50110 | KO | Bijlage T §Algemene uitgangspunten | L1, L2 |
 | HW-10 | Supplier must provide a safety paragraph and risk analysis covering work with live/energised components in training scenarios | KO | Bijlage T §Algemene uitgangspunten | L1, L2 |
-| HW-11 | MV (MS) scenarios require simulation of SF-6 gas-pressure indication (low-pressure warning) without real SF-6 manipulation | SC | Bijlage T P2-MS-04 | L2 |
+| HW-11 | MV (MS) scenarios require simulation of SF-6 gas-pressure gauge state (alarm / normal) without real SF-6 manipulation | SC | Bijlage T P2-MS-05 | L2 |
 | HW-12 | MV scenarios require simulation of WEGA unit faults (voltage detection system failures) | SC | Bijlage T P2-MS-02 | L2 |
 | HW-13 | MV scenarios require simulation of SVS switch defects | SC | Bijlage T P2-MS-01 | L2 |
-| HW-14 | LV scenarios require per-phase voltage/fault simulation (phase sequence, phase rotation, phase-to-earth fault) | SC | Bijlage T P2-LS-04, P2-MK-09 | L2 |
+| HW-14 | LV scenarios require per-phase simulation: phase rotation (P2-LS-04), phase absence per phase (P2-MK-07), wrong phase sequence causing meter reversal (P2-MK-11), two-phase short-circuit where MSR fuse stays intact (P2-MK-09) | SC | Bijlage T P2-LS-04, P2-MK-07, P2-MK-09, P2-MK-11 | L2 |
 | HW-15 | LV scenarios require per-dwelling simulation in meterkast (kWh meter, MSR fuse, main switch per dwelling) | SC | Bijlage T P2-MK-01 through P2-MK-11 | L2 |
-| HW-16 | LV scenarios require simulation of CAM connector defects and blade cartridge (mespatroon) states | SC | Bijlage T P2-LS-05, P2-MK-08 | L2 |
+| HW-16 | LV scenarios require simulation of CAM connector defects (P2-LS-05: defective CAM plug, phase/neutral absent, elevated voltage in dwelling) and neutral-conductor absence per dwelling (P2-MK-08: neutral/earth missing from one dwelling's network supply) | SC | Bijlage T P2-LS-05, P2-MK-08 | L2 |
 | HW-17 | OV scenarios require individual relay and modem control per street lighting circuit | SC | Bijlage T P2-OV-01 through P2-OV-10 | L2 |
 | HW-18 | Operating voltage for simulation hardware is 20–50 V DC (safe low-voltage for instrumentation) | CO | [AVANADE] ROM v1.2; 2023 requirements document. Confirmed as design intent; NOT confirmed in tender documents. | L2 |
 | HW-19 | Platform must integrate with Alliander IAM per Bijlage V — OIDC/OAuth 2.0 (preferred) or SAML 2.0; SailPoint/SCIM 2.0 for user provisioning | KO | Bijlage V §IAM aansluitvoorwaarden | SEC |
@@ -229,68 +229,76 @@ Bijlage T defines 31 minimum scenarios across 4 training domains. These are the 
 
 The training installation is a FlexOV installation: a simulated street lighting network with individual controllable circuits (relays, modems).
 
-| Scenario ID | Summary | Hardware capability required |
-|---|---|---|
-| P2-OV-01 | Cable damage in street lighting circuit | Ability to simulate open-circuit / high-resistance fault on a specific OV cable segment |
-| P2-OV-02 | Joint defect in cable | Ability to simulate intermittent or partial connection fault at a cable joint |
-| P2-OV-03 | Fuse activation (fuse blown) | Remote fuse state control per OV circuit — fuse-open simulation |
-| P2-OV-04 | Lamp defect (failure of a luminaire) | Per-lamp load simulation or open-circuit simulation on lamp leg |
-| P2-OV-05 | Relay defect | Relay inhibit/fault injection on FlexOV relay per circuit |
-| P2-OV-06 | Modem defect in OV controller | Modem disable / fault simulation per OV control modem |
-| P2-OV-07 | Permanent energisation (circuit stays live when it should turn off) | Ability to override OV relay to remain closed regardless of control signal |
-| P2-OV-08 | Phase defect (loss of one phase to OV installation) | Per-phase disable or high-impedance simulation at OV feed point |
-| P2-OV-09 | Overload on OV circuit | Electrical load injection or current simulation above rated threshold |
-| P2-OV-10 | Multiple simultaneous OV faults (combination scenario) | Ability to inject 2+ independent faults simultaneously across OV circuits |
+Dutch title and English summary are drawn directly from the PDF. Hardware capability is [INTERP].
 
-[INTERP] OV scenarios require individually addressable relay/modem control per circuit. The hardware layer must be able to isolate, inject, and reset faults on a per-circuit basis without affecting adjacent circuits.
+| Scenario ID | Dutch title (PDF exact) | English summary | Hardware capability required |
+|---|---|---|---|
+| P2-OV-01 | Simulatie graafschade in netkabel | Cable trench damage — one phase of underground cable broken | Ability to simulate open-circuit on one phase of a specific OV cable segment; per-phase independent simulation |
+| P2-OV-02 | Defect in mof — doorgebrande fase | Burned phase at cable junction box — branch cables affected | Ability to simulate a burned/open phase at a cable junction point, affecting outgoing branch cables connected at that joint |
+| P2-OV-03 | OV-systeem volledig spanningsloos door zekeringfout | OV system completely de-energised due to fuse fault | Remote fuse-open simulation that removes power from the entire OV system; no unwanted side-effects elsewhere in the installation |
+| P2-OV-04 | Kortsluiting in lichtmast — zekering faget spreekt aan (sic; "faget" is a typo in the PDF) | Short circuit in lamp post — fuse in lamp post connection box trips | Short-circuit simulation on lamp-post branch causing fuse trip in the lamp post connection box; independently simulatable per lamp post |
+| P2-OV-05 | Defecte lamp in lichtmast | Defective lamp in lamp post — no light, voltage present | Simulate lamp-failure condition: voltage present at supply, no light/load; clearly distinguishable from no-voltage faults |
+| P2-OV-06 | Sluiting hulpader/hoofdader in mof — effect op afgaande kabels | Auxiliary/main conductor contact in junction box — de-energisation or faults on multiple outgoing cables | Simulate conductor-to-conductor contact at a junction point causing faults on multiple outgoing cables; effects (de-energisation and/or short circuit) independently observable |
+| P2-OV-07 | Defect relais in FlexOV-installatie | Defective relay in FlexOV installation — lighting does not switch correctly despite supply being present | Per-relay fault injection in FlexOV installation; each relay independently injectable into fault state without affecting other FlexOV components |
+| P2-OV-08 | Defect modem in FlexOV-installatie | Defective modem in FlexOV installation — communication lost, lighting stuck in fixed state | Per-modem communication-fault simulation; modem independently disabled so lighting remains in last state regardless of control commands |
+| P2-OV-09 | OV brandt altijd — sluiting hulpader/hoofdader | OV permanently on — cable fault holds street lighting permanently energised regardless of switch commands | Simulate cable fault holding OV permanently energised regardless of control commands; relay override simulation; easily resettable after exercise |
+| P2-OV-10 | Uitbreiding OV-net — overbelasting bij inschakeling | OV network extended but supply not uprated — simultaneous switch-on causes overload and fuse trip | Simulate overload condition: simultaneous full-OV switch-on causes fuse trip due to insufficient supply capacity |
+
+[INTERP] Every OV scenario requires individually addressable relay and modem control per circuit. The hardware layer must isolate, inject, and reset faults on a per-circuit basis without affecting adjacent circuits. OV-07 and OV-08 confirm that FlexOV relays and modems must each be individually injectable independent of adjacent components.
 
 ### 5.2 MK — Meterkast (Meter Cabinet / Consumer Installation) — 11 scenarios
 
 The training installation simulates a residential/commercial metering cabinet with multiple dwellings, each with kWh meter, MSR fuse, main switch, and CAM connectors.
 
-| Scenario ID | Summary | Hardware capability required |
-|---|---|---|
-| P2-MK-01 | kWh meter defect (meter failure) | Per-meter simulation of defect state (reading error, non-response, or display fault) |
-| P2-MK-02 | MSR fuse activation (blown fuse on main group) | Per-fuse remote trip and reset capability |
-| P2-MK-03 | Short circuit on dwelling circuit | Current surge simulation or hard short injection on specific dwelling leg |
-| P2-MK-04 | Earth fault (aardlekkage) on dwelling circuit | Earth leakage simulation — residual current injection or earth-loop fault |
-| P2-MK-05 | Phase-to-earth fault | Controlled phase-to-earth fault injection per dwelling |
-| P2-MK-06 | Main switch defect (hoofdschakelaar niet afschakelbaar) | Inhibit/defect simulation on dwelling main switch — cannot trip on command |
-| P2-MK-07 | Neutral conductor defect (nulgeleider) | Open neutral simulation — voltage imbalance effect on dwelling |
-| P2-MK-08 | CAM connector defect | Resistance injection or open-circuit simulation on CAM connector point |
-| P2-MK-09 | Phase sequence error (fasevolgorde) | Phase rotation error simulation — out-of-sequence phase presentation |
-| P2-MK-10 | Overload on dwelling circuit | Overcurrent simulation on specific dwelling without tripping other dwellings |
-| P2-MK-11 | Multiple simultaneous meterkast faults | 2+ independent faults across different dwellings simultaneously |
+Dutch title and English summary are drawn directly from the PDF. Hardware capability is [INTERP].
 
-[INTERP] 11 scenarios across a single cabinet type. Hardware must support per-dwelling isolation to at least 3 electrical parameters: fuse state, earth fault, phase/neutral integrity. Random assignment (which trainee gets which fault) must be software-driven but hardware-executed.
+| Scenario ID | Dutch title (PDF exact) | English summary | Hardware capability required |
+|---|---|---|---|
+| P2-MK-01 | Intern defecte kWh-meter — geen doorgifte van spanning | Internally defective kWh meter — no voltage pass-through (one or more phases absent at output) | Per-meter simulation of voltage-blocking defect: input voltage present, output absent; single-phase and multi-phase output loss each independently simulatable |
+| P2-MK-02 | Intern defecte kWh-meter — nulgeleider niet doorgelaten | Internally defective kWh meter — neutral conductor not passed through, causing abnormal behaviour of connected installations | Simulate neutral-conductor break at meter: input correct, neutral absent at output, causing voltage imbalance on connected loads |
+| P2-MK-03 | Kortsluiting in meter — hoofdzekering klapt direct terug | Short circuit at meter — main fuse trips and immediately re-trips on reset attempt | Persistent-fault simulation at meter/main-switch location: main fuse trips and immediately re-trips on reset; distinguishable from transient one-shot faults |
+| P2-MK-04 | Geen spanning in meterkast — zekering MSR aangesproken | No voltage in meter cabinet — MSR fuse tripped, cause lies outside the cabinet in the distribution network | Complete de-energisation of meter cabinet by MSR fuse trip; fault traceable upstream into distribution network, not within the cabinet |
+| P2-MK-05 | Defecte hoofdschakelaar — nulgeleider of fase onderbroken | Defective main switch — neutral or phase conductor interrupted, causing abnormal voltages up to ca. 400 V | Simulate main-switch internal break: interrupted-neutral and interrupted-phase variants independently simulatable; elevated voltages up to ~400 V measurably present; highest-safety-risk MK scenario |
+| P2-MK-06 | Aardlekfout klantinstallatie — hoofdzekering spreekt aan | Earth fault at customer installation — main fuse trips, cause is at the customer side | Simulate earth-fault condition at customer-installation side of the cabinet; main fuse trips; trainees must locate cause at customer side, not in distribution network |
+| P2-MK-07 | Fase mist vanuit het net | Phase missing from the network — one specific phase absent at meter cabinet; random assignment of which phase | Per-phase absence simulation at meter-cabinet supply; each phase independently simulatable; random assignment supported so trainees cannot anticipate which phase fails |
+| P2-MK-08 | Nulgeleider ontbreekt per woning | Neutral conductor missing per dwelling — neutral and earth absent from one dwelling's network supply, causing voltage imbalance; random assignment per dwelling | Per-dwelling neutral-absence simulation; independently simulatable per dwelling without affecting other dwellings; random per-dwelling assignment supported; elevated voltages in affected dwelling measurably present |
+| P2-MK-09 | Twee fasen kortgesloten in distributienet — MSR-zekering blijft intact | Two phases short-circuited in distribution network — MSR fuse does not trip; only one phase available in connected installation | Simulate two-phase short-circuit in distribution network where MSR fuse remains intact; one phase available in connected installation; clearly distinguishable from fuse-trip scenarios |
+| P2-MK-10 | Kortsluiting in secundaire doorlus — netzekering spreekt aan | Short circuit in secondary loop-through — network fuse trips, multiple dwellings de-energised | Simulate fault in secondary loop-through: first dwelling remains supplied, downstream loop-through dwellings de-energised; network fuse trips; multi-dwelling impact from single fault |
+| P2-MK-11 | Fasevolgorde verkeerd — meter registreert teruglevering | Wrong phase sequence — meter registers negative as if energy is being returned (apparent feed-back) | Phase-sequence reversal simulation at kWh-meter connection; meter displays negative registration; measurably demonstrable effect |
+
+[INTERP] MK scenarios span two distinct sub-domains: internal kWh-meter faults (MK-01, MK-02) and network/distribution faults that manifest at the meter cabinet (MK-03 through MK-11). Random assignment is explicitly required for MK-07 and MK-08. MK-05 (elevated voltages to ~400 V) is the highest-safety-risk MK scenario and requires extra safety provisions per Bijlage T. Hardware must support per-dwelling independent isolation.
 
 ### 5.3 LS — Laagspanningsnet (Low Voltage Distribution Network) — 5 scenarios
 
 The training installation simulates LV distribution network components: MSR fuses, cable joints, CAM connectors, and phase measurement.
 
-| Scenario ID | Summary | Hardware capability required |
-|---|---|---|
-| P2-LS-01 | MSR fuse fault on LV distribution board | Per-fuse remote trip on LV busbar fuse position |
-| P2-LS-02 | Overload on LV cable or feeder | Overcurrent injection or load simulation above rated on specific LV feeder |
-| P2-LS-03 | Cable joint defect in LV network | Resistance/open-circuit simulation at joint point in LV cable run |
-| P2-LS-04 | Phase rotation error in LV network | 3-phase rotation simulation at LV measurement point |
-| P2-LS-05 | CAM connector defect in LV network | Resistance injection or open-circuit at CAM connector position in LV network |
+Dutch title and English summary are drawn directly from the PDF. Hardware capability is [INTERP].
 
-[INTERP] LS and MK scenarios share hardware types (CAM, MSR, phase measurement). Hardware must work at LV distribution level as well as consumer installation level — these may be different physical installation positions in the schakellokaal.
+| Scenario ID | Dutch title (PDF exact) | English summary | Hardware capability required |
+|---|---|---|---|
+| P2-LS-01 | Zekering MSR — hardnekkig terugspringen | MSR fuse persistent re-trip — fuse immediately re-trips after replacement or reset | Simulate persistent-fault condition causing MSR fuse to re-trip immediately on reset; distinguishable from one-shot fuse events |
+| P2-LS-02 | Overbelasting net — zekering MSR spreekt aan | Network overload — MSR fuse trips due to simultaneous connection of large consumers (e.g. heat pumps) | Simulate LV network overload: simultaneous high-load connection causes MSR fuse trip; reproducible overload condition |
+| P2-LS-03 | Netaftakmof — fase mist, hulpader mist of sluiting | Network tap junction box — three independently simulatable fault types: phase missing, auxiliary conductor missing, or short circuit | Three independently simulatable fault types at one network tap junction: (1) phase absent, (2) auxiliary conductor absent, (3) short circuit; each measurably demonstrable to trainees |
+| P2-LS-04 | Fasedraaiing in kabeltraject | Phase rotation in cable route — phase sequence incorrect (R/Y/B does not correspond to 1/2/3) | Phase-rotation signal at LV measurement point; rotation measurably demonstrable |
+| P2-LS-05 | Defecte CAM-stekker — fase/nul afwezig, verhoogde spanning in woning | Defective CAM connector — phase and/or neutral absent, elevated voltages up to ca. 400 V in dwelling installation | Simulate CAM-connector defect: phase and/or neutral not correctly passed; elevated voltages up to ~400 V measurably present in dwelling; extra safety provisions required |
+
+[INTERP] LS-03 is significantly more complex than a simple joint defect — it requires the hardware to simulate three independently selectable fault types at a single junction point. LS-05 (CAM connector, elevated voltages to ~400 V) shares the same safety-risk profile as MK-05 and requires extra safety provisions. Hardware for LS and MK domains partly overlaps (MSR, CAM) but is at different physical locations in the schakellokaal.
 
 ### 5.4 MS — Middenspanning (Medium Voltage Switchgear) — 5 scenarios
 
 The training installation includes real MV switchgear (de-energised physical equipment) with simulated electrical states injected at the instrumentation layer.
 
-| Scenario ID | Summary | Hardware capability required |
-|---|---|---|
-| P2-MS-01 | SVS switch defect (safety isolation switch) | Remote simulation of SVS switch fault state — closed when should be open, or locked-out |
-| P2-MS-02 | WEGA device defect (voltage detection unit) | Ability to inhibit or falsify WEGA voltage indication — simulate "no voltage" when voltage present, or vice versa |
-| P2-MS-03 | Phase rotation fault on MV feeder | 3-phase rotation simulation at MV measurement interface |
-| P2-MS-04 | SF-6 gas pressure alarm (low pressure indication) | Digital input simulation to trigger SF-6 low-pressure alarm on switchgear status panel — without real SF-6 manipulation |
-| P2-MS-05 | Fault indicator direction error (richtingaanwijzer) | Ability to inject incorrect fault direction signal on MV feeder fault passage indicator |
+Dutch title and English summary are drawn directly from the PDF. Hardware capability is [INTERP].
 
-[INTERP] MV scenarios are the most complex. The instrumentation must interface with physical MV switchgear (ABB SafeRing, WEGA units, SVS) that operates at real medium-voltage levels (6 kV, 10 kV, or 20 kV). The simulation must inject electrical signals at the instrumentation/sensing level without exposing the hardware or trainees to real MV voltages. This is the highest-risk and highest-complexity hardware domain. Bijlage T's requirement for a supplier safety paragraph and risk analysis is especially critical here.
+| Scenario ID | Dutch title (PDF exact) | English summary | Hardware capability required |
+|---|---|---|---|
+| P2-MS-01 | SVS-schakelaar — fase valt weg door intern defect | SVS switch — one phase lost due to internal defect; audible switch signal present but phase not switched through | Simulate SVS switch internal defect: audible switching sound present, but one phase does not switch through; clearly distinguishable from complete switch failure |
+| P2-MS-02 | WEGA — fout aangesloten of geen spanningsafgifte | WEGA — incorrectly connected, or no voltage output despite voltage being present | Two independently simulatable WEGA fault variants: (1) incorrect connection situation, (2) absent voltage output while voltage is present; both measurably demonstrable |
+| P2-MS-03 | Fasedraaiing in MS-kabeltraject | Phase rotation in MV cable route — phase sequence incorrect, arising from cable colouring error | Phase-rotation signal at MV measurement interface; measurably demonstrable to trainees |
+| P2-MS-04 | Storingsverklikkers — richting en locatie bepalen | Fault indicators — simulate indicator pattern reflecting a specific pre-defined current direction and fault location | Simulate fault-indicator (storingsverklikker) state: indicator pattern reflects a specific pre-defined current direction and interruption location; multiple independently simulatable fault situations; trainees must analyse indicator readings to locate fault |
+| P2-MS-05 | SF-6 gasdrukmeter — alarm- of normaalstand | SF-6 gas pressure gauge — alarm state (red) or normal state (green) simulatable | Simulate SF-6 gas-pressure gauge state: both alarm (red) and normal (green) independently simulatable; indicator clearly readable; does not require real SF-6 gas manipulation |
+
+[INTERP] MS scenarios are the highest-risk and highest-complexity domain. The instrumentation must interface with physical MV switchgear (ABB SafeRing/SafePlus type, WEGA, SVS) that operates at real medium-voltage levels. Simulation must inject signals at the instrumentation/sensing level without exposing hardware or trainees to real MV voltages. Bijlage T's requirement for a supplier safety paragraph and risk analysis is most critical here. MS-04 (fault indicators) requires simulation of the richtingaanwijzer / storingsverklikker system, which indicates fault current direction and location — this is a separate hardware type from the SF-6 gauge simulation in MS-05.
 
 ---
 
@@ -372,9 +380,19 @@ This is an absolute disqualification condition. The solution must support:
 
 [INTERP] ISO 27001 applies to the supplier's organisation, not the hardware itself. However, hardware partners that process or have access to Alliander system data may need to demonstrate equivalent information security controls, or operate under Avanade's ISO 27001 scope.
 
-### 7.4 Data Residency [DOC / INTERP]
+### 7.4 Data Residency [DOC — confirmed]
 
-The tender guide does not explicitly state data residency requirements. [INTERP] Given Alliander is a Dutch critical infrastructure operator and the IAM requirements reference Dutch/EU standards, data residency in the EU (likely NL) is probable. This was not confirmed in the readable documents. Bijlage L (unread xlsx) may contain an explicit requirement.
+Data residency within the EEA (European Economic Area) is a mandatory requirement, confirmed in two independent Bijlage L requirements:
+
+**[DOC] Bijlage L IT-03 (Non-functionele eisen, Eis):**
+> "Data wordt uitsluitend opgeslagen binnen de EER."
+> ("Data is stored exclusively within the EEA.")
+
+**[DOC] Bijlage L LCD11 (Eisen cloud provider, Eis):**
+> "Data wordt uitsluitend opgeslagen in landen die deel uitmaken van de Europese Economische Ruimte (EER)."
+> ("Data is stored exclusively in countries that are part of the European Economic Area.")
+
+The supplier must also provide a complete, current inventory of all datacentres, cloud regions, platforms, and storage services used, including the physical country and the role of each location (production, test, backup, archival, failover). Changes to storage locations must be reported in advance and re-assessed by Alliander. Storage outside the EEA is explicitly prohibited. Gap G-09 is closed.
 
 ---
 
@@ -390,7 +408,7 @@ These are open questions for site survey, clarification round (NvI 2 if applicab
 | G-04 | **Meetveld (measurement field) scope unclear.** The tender names "schakellokaal" and "meetveld" as distinct environments. The scenarios in Bijlage T appear to address schakellokaal-type equipment (MS, LS, OV, MK). No meetveld-specific scenarios are described. Does the meetveld require digital control hardware? What equipment does it contain? | Bijlage T only covers switchgear scenarios | HIGH |
 | G-05 | **Trainee identification method undefined.** The tender requires IAM integration (Bijlage V) and learning data collection (GC3). The 2023 Avanade requirements document raised NFC/RFID/access card identification as an open question. The tender does not specify the physical identification mechanism. Does Alliander use a badge/card already? What hardware standard? | 2023 Avanade doc; no tender confirmation | HIGH |
 | G-06 | **Operating voltage confirmation.** The ROM v1.2 2025 specifies 20–50 V DC for instrumentation. The 2023 requirements document mentions 25/50 V. Neither is confirmed in the tender documents. If the actual switchgear uses different voltages or AC, the hardware design changes. | Tender silent on voltage specs | HIGH |
-| G-07 | **SF-6 simulation method.** P2-MS-04 requires SF-6 low-pressure alarm simulation. On real SF-6 switchgear the pressure indicator is a mechanical/electrical sensor. Exactly how this signal is to be intercepted and falsified — whether via relay injection on the indicator circuit, or a bypass sensor — is unspecified. The safety risk of manipulating real SF-6 equipment during training must be addressed in the risk analysis. | Bijlage T describes the scenario outcome, not the method | HIGH |
+| G-07 | **SF-6 simulation method.** P2-MS-05 (not MS-04; MS-04 is fault indicators) requires simulation of the SF-6 gas-pressure gauge state (alarm/normal). On real SF-6 switchgear the pressure indicator is a mechanical/electrical sensor. Exactly how this signal is to be intercepted — whether via relay injection on the indicator circuit, or a bypass sensor — is unspecified. The safety risk of proximity to real SF-6 equipment during instrumentation must be addressed in the risk analysis. | Bijlage T describes the scenario outcome, not the method | HIGH |
 | G-08 | **WEGA and SVS interface specifications.** The tender names WEGA and SVS as equipment types but does not provide electrical interface specifications (voltage levels, signal types, protocols). The hardware partner needs these to design instrumentation. | Source documents name types only | MEDIUM |
 | G-09 | ~~Data residency unconfirmed~~ | **CLOSED** — Bijlage L IT-03 (Non-functionele eisen) and LCD11 (Eisen cloud provider) both explicitly require EEA-only data storage. Storage outside EEA is not permitted. No further ambiguity. | CLOSED |
 | G-10 | **Archipel integration scope.** The tender states Archipel replacement is a separate tender, but does not clarify whether the new digital control platform must import data from or coexist with Archipel during a transition period. | Aanbestedingsleidraad §1.5.5 | MEDIUM |

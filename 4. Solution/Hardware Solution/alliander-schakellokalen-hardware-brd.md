@@ -8,11 +8,11 @@ ms.topic: reference
 
 ## Executive Summary
 
-Alliander, the Dutch regional grid operator, trains its electrical engineers and monteurs at physical training centres called schakellokalen (switching rooms), where they practise switching operations on real medium- and low-voltage switchgear. Alliander has issued an open tender, "Digitale aansturing van oefenomgevingen voor technische opleidingen" (tender 226705), for a supplier to design, build, and operate a digital control layer that connects these training environments to a managed platform so scenarios can be run, monitored, and scored digitally, with a strict requirement that training must continue to function fully offline.
+Alliander, the Dutch regional grid operator, trains its electrical engineers and monteurs at physical training centres called schakellokalen (switching rooms), where they practise switching operations on real medium- and low-voltage switchgear. Alliander has issued an open tender, "Digitale aansturing van oefenomgevingen voor technische opleidingen" (tender 226705), for a supplier to design, build, and operate a digital control layer that connects these training environments to a managed platform so scenarios can be run, monitored, and scored digitally, and that keeps training running when the internet connection is lost.
 
 Avanade is bidding for this framework agreement. To deliver the hardware layer that makes training assets digitally observable and controllable, Avanade needs an IoT hardware partner. This document defines what that partner must deliver: not a bill of materials, but a set of outcome-based capability requirements covering sourcing, building, enabling, servicing, and supporting the instrumentation and edge-connectivity layer across the initial four training environments in Haarlem and Zevenaar, with scalability to future sites.
 
-The requirements in this document are drawn primarily from the tender's own documents, summarized in the reconnaissance memo at [4. Solution/Hardware Solution/recon/tender-hardware-recon.md](../recon/tender-hardware-recon.md). Two constraints override every other requirement in this document. The digital layer must operate fully offline at each site, and physical safety systems must remain completely independent of and unaffected by the digital layer. Any device-specific detail in this BRD is indicative only. The partner's proposal, validated against a joint site survey, determines the final hardware selection.
+The requirements in this document are drawn primarily from the tender's own documents: the tender guide (Aanbestedingsleidraad) and its appendices, in particular the requirements specification (Bijlage L) and the core scenarios (Bijlage T). Two principles shape every other requirement. Physical safety systems must remain completely independent of, and unaffected by, the digital layer [Bijlage L SAFE-01, SAFE-02]. And each site must keep training when its internet connection is lost [Bijlage L PERF-05]; Avanade's design goes further and runs each site fully offline. Any device-specific detail in this BRD is indicative only. The partner's proposal, validated against a joint site survey, determines the final hardware selection.
 
 ## Business Context and Background
 
@@ -30,7 +30,7 @@ The business drivers are procurement-mandated and non-negotiable, formalized in 
 
 | Objective | Success metric | Source |
 |---|---|---|
-| Enable fully offline training operation at every site | A training session runs, scores, and records outcomes with zero live network dependency; verified during acceptance testing | Aanbestedingsleidraad §1.5.3; Bijlage L PERF-05 |
+| Enable resilient local training operation at every site | Training sessions run and are scored without dependency on internet connectivity; the solution functions during temporary internet outage per Bijlage L PERF-05. Avanade's design extends this to fully offline-capable edge operation as a design choice that exceeds the tender requirement. Verified during acceptance testing | Bijlage L PERF-05 |
 | Demonstrate credible, integration-ready hardware scope in the bid | GC1 (implementation plan, 35% of total score) scored above the disqualifying floor of 0, driven partly by the hardware integration narrative | Bijlage N GC1 |
 | Cover all defined training scenarios | All 31 Bijlage T core scenarios (10 OV, 11 MK, 5 LS, 5 MS) demonstrated as working on instrumented hardware at formal acceptance | Bijlage L ACC-03 |
 | Protect trainee and asset safety | Zero incidents where the digital layer overrides, disables, or bypasses a physical safety provision, verified through the required risk analysis | Bijlage L SAFE-01, SAFE-02 |
@@ -54,7 +54,7 @@ The solution is best understood as a six-layer progression, from the physical sw
 
 1. Physical: the existing training switchgear. Medium- and high-voltage panels, ring main units, disconnectors, breakers, earthing switches, transformers, and busbars, plus low-voltage distribution boards, meter cabinets, and street-lighting circuits. This equipment already exists and is out of the hardware partner's supply scope; the partner instruments it.
 2. Instrument: sensing and actuation added to the physical assets. Switch position and state sensing, current and voltage signal capture, RFID or NFC identification on components or trainees, indicator and interlock monitoring, and controlled fault injection at the instrumentation level.
-3. Connect (edge): the on-site IoT gateway and industrial network that links instrumentation to a training-scenario engine. This layer includes the critical on-site edge server that must run the entire site fully offline, with no dependency on internet breakout, backed by UPS, and syncing to the cloud only when connectivity becomes available.
+3. Connect (edge): the on-site IoT gateway and industrial network that links instrumentation to a training-scenario engine. This layer includes the critical on-site edge server, backed by UPS. The tender requires the solution to keep working during a temporary internet outage [Bijlage L PERF-05]; in Avanade's design the edge server runs the entire site fully offline, with no dependency on internet breakout, and syncs to the cloud only when connectivity becomes available.
 4. Digital twin: a live virtual replica of the switchgear, reflecting real-time state, topology, energisation, scenario and fault state, and session history. Built on top of the connected foundation the hardware partner enables.
 5. AI and agentic capability: vision-based step validation, a procedure copilot, a fault and scenario engine, and automated scoring and feedback. Enabled once devices are digital and connected, not a hardware partner deliverable.
 6. Experience: the instructor dashboard, trainee HMI or tablet interface, optional AR or MR overlay, and voice interaction. The user-facing layer built on everything below it.
@@ -67,7 +67,7 @@ A cross-cutting principle applies to every layer the hardware partner touches. S
 
 * Solution-specific hardware required for the digital control layer to function: relays, I/O boards, cabling, comparable control technology, smart cables, sensors, and switches [Aanbestedingsleidraad §1.5.4; Bijlage L HW-01].
 * Instrumentation and retrofit work on the existing MV, LV, meterkast, and street-lighting (FlexOV) assets across Haarlem and Zevenaar's schakellokalen and meetvelden [Bijlage T scenario groups].
-* On-site edge compute, industrial networking, and power/UPS hardware needed to run training scenarios fully offline [Aanbestedingsleidraad §1.5.3].
+* On-site edge compute, industrial networking, and power/UPS hardware needed to run training scenarios locally, with resilience to temporary internet connectivity loss [Bijlage L PERF-05]. Avanade's design choice is fully offline-capable edge operation.
 * Preventive maintenance, calibration, spares, firmware and patch management, and support across the 3-year base term plus up to 5 one-year extensions [Aanbestedingsleidraad §1.2, §1.4].
 * A complete hardware manifest: quantities, technical specifications, warranty periods, expected lifespan, and maintenance and replacement requirements [Bijlage L HW-02].
 
@@ -88,12 +88,12 @@ Each requirement is expressed as an outcome the partner must be able to deliver,
 | ID | Requirement | Priority | Source |
 |---|---|---|---|
 | BR-001 | The partner shall be able to source instrumentation-grade sensing hardware, such as relays, I/O modules, smart cables, and position or state sensors, suitable for retrofitting onto existing MV and LV switchgear without altering its original electrical function. | Must | Bijlage L HW-01; Aanbestedingsleidraad §1.5.4 |
-| BR-002 | The partner shall be able to source edge compute or gateway hardware capable of running the full training and scenario engine entirely offline, with no cloud dependency for operation. | Must | Aanbestedingsleidraad §1.5.3; Bijlage L PERF-05 |
+| BR-002 | The partner shall be able to source edge compute or gateway hardware capable of running the full training and scenario engine locally, remaining operational during temporary internet connectivity loss. Avanade's design intent is fully offline-capable edge operation, which goes beyond the tender's minimum of resilience to temporary outage. | Must | Bijlage L PERF-05 |
 | BR-003 | The partner shall be able to source industrial networking hardware, such as managed switches and protocol gateways, supporting industrial protocols (for example OPC-UA, Modbus, or MQTT) isolated from Alliander's corporate IT network. | Must | Bijlage T Algemene uitgangspunten; Bijlage L ITAR-03 |
 | BR-004 | The partner shall be able to source power and UPS hardware that keeps the instrumentation and edge layer able to reach a defined safe state through a power interruption. | Must | Bijlage L SAFE-01 |
 | BR-005 | The partner shall be able to source standardized, ruggedized mounting and enclosure hardware suitable for repeated, intensive use in a training environment. | Should | Bijlage T Algemene uitgangspunten |
 | BR-006 | The partner shall be able to source trainee and instructor identification hardware, such as an RFID or NFC reader, compatible with Alliander's existing credential format, to be confirmed via site survey. | Should | 2023 Avanade requirements document; Bijlage V |
-| BR-007 | The partner shall be able to source optional visual or camera hardware to support supervision or future learning-data capture, subject to confirmation this is in scope. | Could | Open question G-11 |
+| BR-007 | The partner shall be able to source optional visual or camera hardware to support supervision or future learning-data capture, subject to confirmation this is in scope. | Could | Open question: camera scope (see Open Questions and Assumptions) |
 | BR-008 | The partner shall be able to standardize hardware classes across Haarlem, Zevenaar, and future training sites to minimize spares inventory and support cost. | Should | Bijlage N GC2 |
 
 ### Build
@@ -112,17 +112,17 @@ Each requirement is expressed as an outcome the partner must be able to deliver,
 
 | ID | Requirement | Priority | Source |
 |---|---|---|---|
-| BR-020 | The partner shall be able to enable full offline operation of every training scenario at the edge, with no dependency on cloud or internet connectivity for a session to run and be scored. | Must | Aanbestedingsleidraad §1.5.3; Bijlage L PERF-05 |
+| BR-020 | The partner shall be able to enable local edge operation of every training scenario, with the edge server remaining operational during temporary internet connectivity loss (Bijlage L PERF-05, Eis). Avanade's design intent is fully offline-capable operation, exceeding this minimum, so that no session is ever dependent on cloud connectivity. | Must | Bijlage L PERF-05 |
 | BR-021 | The partner shall be able to enable deterministic, repeatable fault injection so an identical scenario can be reproduced across sessions. | Must | Bijlage T Algemene uitgangspunten |
 | BR-022 | The partner shall be able to enable randomized fault assignment, software-driven and hardware-executed, so trainees cannot predict which fault they will receive. | Must | Bijlage T Algemene uitgangspunten |
 | BR-023 | The partner shall be able to enable independent, instructor-controlled activation and reset of one trainee's scenario without interrupting other concurrent sessions, supporting a minimum of four simultaneous participants. | Must | Bijlage T Algemene uitgangspunten; Bijlage L SL-04 |
 | BR-024 | The partner shall be able to enable commissioning and provisioning of a device identity for every instrumentation and edge component, supporting secure onboarding and replacement. | Must | Bijlage L ITAR-03 |
-| BR-025 | The partner shall be able to enable synchronization of session, scenario, and state data from the on-site edge server to the cloud digital twin whenever connectivity becomes available, without requiring connectivity during the session itself. | Must | Aanbestedingsleidraad §1.5.3 |
+| BR-025 | The partner shall be able to enable synchronization of session, scenario, and state data from the on-site edge server to the cloud digital twin whenever connectivity becomes available, without requiring connectivity during the session itself. | Must | Bijlage L PERF-05; Bijlage N GC3 |
 | BR-026 | The partner shall be able to enable integration of trainee and instructor authentication with Alliander's IAM platform (OIDC and OAuth 2.0 with PKCE preferred, SAML 2.0 acceptable), with authentication events exportable to Alliander's SIEM, and with no local password database on any hardware or edge component. | Must | Bijlage V §3.1 to §3.2 |
 | BR-027 | The partner shall be able to enable a fail-safe response so that on malfunction, power loss, or communications loss, all instrumentation and edge hardware autonomously revert to a predefined safe state, terminating the active scenario, placing outputs in a safe position, and leaving physical safety systems unaffected, within a time bound the partner proposes. | Must | Bijlage L SAFE-01 |
 | BR-028 | The partner shall be able to enable open, documented APIs and industry-standard protocols at the hardware and edge integration layer to avoid vendor lock-in and support future integration with Alliander's LVS. | Should | Bijlage N GC2, GC3 |
 | BR-029 | The partner shall be able to enable automatic digital updates to direction indicators and station designations whenever the represented network configuration changes. | Should | Bijlage L HW-03 |
-| BR-030 | The partner shall be able to enable visual or vision-based capture at the instrumentation layer to support future AI-based step validation, subject to confirmation of scope. | Could | Open question G-11 |
+| BR-030 | The partner shall be able to enable visual or vision-based capture at the instrumentation layer to support future AI-based step validation, subject to confirmation of scope. | Could | Open question: camera scope (see Open Questions and Assumptions) |
 
 ### Service
 
@@ -133,7 +133,7 @@ Each requirement is expressed as an outcome the partner must be able to deliver,
 | BR-042 | The partner shall be able to provide firmware and software patching and lifecycle management for all hardware and embedded software components, communicating explicit end-of-support dates. | Must | Bijlage L LCD08 |
 | BR-043 | The partner shall be able to provide spares and an RMA process sized to sustain the required in-service availability of the training environments. | Must | Bijlage Q; Bijlage L PERF-03 |
 | BR-044 | The partner shall be able to propose end-of-life and replacement lifecycle planning aligned with the maximum 8-year contract term. | Should | Bijlage L LCD08 |
-| BR-045 | The partner shall be able to offer circular or sustainable hardware sourcing and disposal options in support of Alliander's social responsibility (MVO) scoring criterion. | Could | Open question G-14 |
+| BR-045 | The partner shall be able to offer circular or sustainable hardware sourcing and disposal options in support of Alliander's social responsibility (MVO) scoring criterion. | Could | Open question: MVO hardware requirements (see Open Questions and Assumptions) |
 
 ### Support
 
@@ -148,7 +148,7 @@ Each requirement is expressed as an outcome the partner must be able to deliver,
 
 ## Non-Functional Requirements and Constraints
 
-Offline-first operation is a knock-out requirement, not a design preference. Every scenario in Bijlage T must run, score, and record its outcome at the edge with zero live network dependency; cloud connectivity is a synchronization option, never an operational dependency [Aanbestedingsleidraad §1.5.3; Bijlage L PERF-05].
+Local edge operation resilience is a mandatory requirement (Eis): the solution must keep functioning during a temporary loss of internet connectivity, for example by running scenarios locally [Bijlage L PERF-05]. Avanade's design goes further: the on-site edge server runs every scenario fully offline, and the cloud is used only for synchronisation, never for operation. This exceeds PERF-05 and is the right architecture for a training environment.
 
 Safety independence is absolute. The digital layer must never override, disable, or bypass an existing physical safety provision, emergency stop, disconnection, interlock, or lock-out and tag-out mechanism, and a failure of the digital layer must never cause a physical safety measure to fail [Bijlage L SAFE-01, SAFE-02]. All work involving live or simulated-live components must comply with NEN 3140 and NEN-EN 50110, and the partner must contribute to a safety paragraph and risk analysis covering this work [Bijlage T Algemene uitgangspunten].
 
@@ -175,7 +175,7 @@ The following walkthrough traces one trainee performing a medium-voltage switchi
 5. Because the scenario requires a WEGA fault, the instrumentation layer injects a falsified voltage-indication signal at the moment the trainee checks the WEGA unit, without touching any real high-voltage circuit [BR-010, BR-022].
 6. The edge server detects that the trainee proceeded as if voltage were absent when the fault scenario says it should still be flagged as present, and marks this step as an error in the local session record [BR-021].
 7. The instructor dashboard, connected to the same on-site edge server over the local industrial network, shows the trainee's live progress and the flagged error immediately, letting the instructor intervene or let the trainee self-correct [BR-025 supports the same data model once synced; the live view itself runs on the edge].
-8. If, mid-session, the site loses its (already inactive) internet connection or experiences a momentary power dip, the UPS-backed edge and instrumentation hardware hold their last safe state and the active scenario terminates safely rather than leaving any output in an undefined condition; the physical panel's own interlocks and emergency stop remain fully functional throughout, independent of this fail-safe behaviour [BR-004, BR-027, SAFE-02].
+8. If, mid-session, the site loses its internet connection or experiences a momentary power dip, the UPS-backed edge and instrumentation hardware hold their last safe state and the active scenario terminates safely rather than leaving any output in an undefined condition; the physical panel's own interlocks and emergency stop remain fully functional throughout, independent of this fail-safe behaviour [BR-004, BR-027, SAFE-02].
 9. The trainee completes the sequence, and the session is scored entirely offline based on the sensor-captured timeline and the flagged error [BR-020].
 10. Later, when the site's edge server regains connectivity, it synchronizes the completed session, its score, and its state history to the cloud digital twin and learning-data platform, without having required that connection for the session to run [BR-025].
 
@@ -187,7 +187,7 @@ The following items must be confirmed through a joint site survey or the RFP cla
 * The scope of the meetveld (measurement field) environments is unclear. Bijlage T's 31 core scenarios all appear to address schakellokaal-type switchgear; whether the meetveld requires its own digital control hardware, and what equipment it contains, is not stated.
 * The physical trainee and instructor identification mechanism is undefined. This BRD assumes an RFID or NFC credential compatible with an existing Alliander badge format, but this is not confirmed in the tender documents.
 * The instrumentation operating voltage is assumed to be 20 to 50 V DC, based on the 2023 Avanade requirements document and the 2025 ROM proposal, but this is not confirmed in the tender itself and must be validated against the actual switchgear.
-* The method for simulating an SF-6 gas-pressure alarm (P2-MS-04) without manipulating real SF-6 equipment is not specified in the tender and needs a specific engineering approach validated in the risk analysis.
+* The method for simulating an SF-6 gas-pressure gauge state (P2-MS-05) without manipulating real SF-6 equipment is not specified in the tender and needs a specific engineering approach validated in the risk analysis.
 * Exact electrical interface specifications for WEGA and SVS units, such as voltage levels, signal types, and protocols, are not published in the tender and must be obtained on site or from the equipment manufacturer.
 * Whether the Archipel system, being replaced under a separate tender, must exchange data with or coexist alongside this platform during a transition period is not addressed.
 * Whether camera or visual-monitoring hardware is in scope at all is unclear; the 2023 Avanade document raised it as a desired capability, but the current tender documents do not reference cameras.
