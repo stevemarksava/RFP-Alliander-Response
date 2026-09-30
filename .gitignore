@@ -1,0 +1,13 @@
+onedrive/
+.copilot-tracking/
+.venv/
+
+# Superteam gate sentinels
+.squad/active-task.md
+.squad/deliver-started.md
+.squad/vera-approved.md
+.squad/kryptonite-cleared.md
+.squad/pod-routed.md
+.squad/kevin-docs-checked.md
+.squad/marlo-specced.md
+.squad/playwright-results.md
