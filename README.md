@@ -12,10 +12,11 @@ The tender documents themselves are **not copied here**. They stay in OneDrive a
 |---|---|
 | Tender hardware recon (Athanasios) | Done and corrected. Internal only: don't send to the partner |
 | Hardware BRD (HVE `@brd-builder`) | Corrected draft, md and Word, Vera-approved; Word copy in OneDrive `4. Solution/Hardware Solution/` |
+| Solution overview + architecture diagram | Draft, one consolidated md/docx/drawio set in `4. Solution/Solution Overview/`; business, enterprise, and data architecture sections are still placeholders |
 | Bob review | Pending |
 | Kryptonite review | Pending |
 
-The Word version is generated from the markdown: `python tools/md_to_docx.py "4. Solution/Hardware Solution/alliander-schakellokalen-hardware-brd.md" "4. Solution/Hardware Solution/alliander-schakellokalen-hardware-brd.docx"`. Edit the markdown, not the Word file.
+The Word version is generated from the markdown: `python tools/md_to_docx.py "4. Solution/Hardware Solution/alliander-schakellokalen-hardware-brd.md" "4. Solution/Hardware Solution/alliander-schakellokalen-hardware-brd.docx"`. Edit the markdown, not the Word file. The same script converts `4. Solution/Solution Overview/solution-overview.md`.
 
 Open item: the Zevenaar site survey. The BRD's assumptions about that site depend on it.
 

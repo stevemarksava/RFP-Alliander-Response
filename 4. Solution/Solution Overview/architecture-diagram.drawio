@@ -1,0 +1,84 @@
+<mxfile host="app.diagrams.net" modified="2026-09-30T00:00:00.000Z" agent="Avanade Bid Team" version="24.0.0" type="device">
+  <diagram id="digital-schakellokalen-architecture" name="Solution Architecture">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="750" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="Digital Schakellokalen - Solution Architecture" style="text;html=1;fontSize=20;fontStyle=1;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="670" height="30" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bgPS" value="PS: Partner Scope - Hardware Layer (offline-capable)" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fillColor=#F5F5F5;strokeColor=#666666;fontSize=13;fontStyle=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="300" height="420" as="geometry" />
+        </mxCell>
+
+        <mxCell id="bgAS" value="AS: Avanade / Alliander Scope - Digital Layer" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;align=left;spacingLeft=10;spacingTop=6;fillColor=#F5F5F5;strokeColor=#666666;fontSize=13;fontStyle=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="60" width="300" height="420" as="geometry" />
+        </mxCell>
+
+        <mxCell id="l1" value="Layer 1 - Physical&#10;MV/LV switchgear, RMUs, breakers,&#10;meterkast, street lighting (FlexOV)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2F5496;strokeColor=#1b3868;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="100" width="260" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="l2" value="Layer 2 - Instrument&#10;Sensors, relays, I/O modules,&#10;RFID/NFC, fault-injection points" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2F5496;strokeColor=#1b3868;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="230" width="260" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="l3" value="Layer 3 - Connect (Edge)&#10;On-site gateway + edge server&#10;OPC-UA / Modbus / MQTT, UPS&#10;runs FULLY OFFLINE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2F5496;strokeColor=#1b3868;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="360" width="260" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_l1_l2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="l1" target="l2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l2_l3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="l2" target="l3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="l4" value="Layer 4 - Digital Twin&#10;Authoritative network model,&#10;live state, session history" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#70AD47;strokeColor=#4c7530;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="430" y="100" width="260" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="l5" value="Layer 5 - AI &amp; Agentic&#10;Vision step validation, procedure&#10;copilot, fault engine, scoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#70AD47;strokeColor=#4c7530;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="430" y="230" width="260" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="l6" value="Layer 6 - Experience&#10;Instructor dashboard, trainee HMI,&#10;optional AR/MR, voice" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#70AD47;strokeColor=#4c7530;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="430" y="360" width="260" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_l4_l5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="l4" target="l5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_l5_l6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="l5" target="l6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_l3_l4" value="sync when connectivity available&#10;(async, not required for operation)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;fontSize=9;fontStyle=2;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="l3" target="l4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iam" value="Alliander IAM&#10;OIDC/OAuth2 + PKCE, SIEM export&#10;no local credential stores" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ED7D31;strokeColor=#b3591c;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="60" y="520" width="260" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_iam_l3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="iam" target="l3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="safe" value="Physical safety systems&#10;interlocks, e-stop, LOTO&#10;INDEPENDENT of digital layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ED7D31;strokeColor=#b3591c;fontColor=#FFFFFF;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="430" y="520" width="260" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_safe_l2" value="never overridden by" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;endArrow=open;fontSize=9;fontStyle=2;" edge="1" parent="1" source="safe" target="l2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend" value="Legend: solid arrow = data flow within a boundary; dashed arrow = cross-cutting / optional connection.&#10;PS (blue) = hardware partner delivery scope, offline-capable. AS (green) = Avanade/Alliander digital scope, cloud-hosted (EEA).&#10;IAM and Physical safety systems (orange) are cross-cutting: identity federates into the edge, safety remains fully independent of the digital layer." style="text;html=1;fontSize=11;align=left;verticalAlign=top;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="620" width="670" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
